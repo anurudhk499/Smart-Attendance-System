@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="success-section">
+        <div class="success-icon">✓</div>
+        <h1>Student Added Successfully!</h1>
+        <p>Student <strong>{{ name }}</strong> has been added to the system.</p>
+        
+        <div class="next-steps">
+            <h3>Next Steps:</h3>
+            <ol>
+                <li>The student should stand in front of the camera</li>
+                <li>Ensure good lighting conditions</li>
+                <li>The system will automatically learn their face over time</li>
+                <li>They can mark attendance by showing an open hand gesture</li>
+            </ol>
+        </div>
+        
+        <div class="action-buttons">
+            <a href="{{ url_for('add_student') }}" class="btn-primary">Add Another Student</a>
+            <a href="{{ url_for('index') }}" class="btn-secondary">Back to Home</a>
+        </div>
+    </div>
+</div>
+
+<style>
+.success-section {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.success-icon {
+    font-size: 4rem;
+    color: #00ff88;
+    margin-bottom: 1rem;
+}
+
+.next-steps {
+    text-align: left;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin: 2rem 0;
+}
+
+.next-steps ol {
+    padding-left: 1.5rem;
+}
+
+.next-steps li {
+    margin-bottom: 0.5rem;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-primary, .btn-secondary {
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: transform 0.3s;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #00ff88, #0088ff);
+    color: #000;
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 1px solid #444;
+}
+
+.btn-primary:hover, .btn-secondary:hover {
+    transform: scale(1.05);
+}
+</style>
+{% endblock %}

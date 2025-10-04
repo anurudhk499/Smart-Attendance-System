@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="success-section">
+        <div class="success-icon">✅</div>
+        <h1>Face Registration Complete!</h1>
+        <p>Student <strong>{{ name }}</strong> has been successfully registered in the system.</p>
+        
+        <div class="registration-summary">
+            <h3>Registration Summary:</h3>
+            <div class="summary-item">
+                <span class="label">Student Name:</span>
+                <span class="value">{{ name }}</span>
+            </div>
+            <div class="summary-item">
+                <span class="label">Face Samples:</span>
+                <span class="value">10 images captured</span>
+            </div>
+            <div class="summary-item">
+                <span class="label">Status:</span>
+                <span class="value success">Ready for attendance</span>
+            </div>
+        </div>
+        
+        <div class="next-steps">
+            <h3>Next Steps:</h3>
+            <ol>
+                <li>The student can now mark attendance using the system</li>
+                <li>They should stand in front of the camera</li>
+                <li>Wait for their name to be recognized</li>
+                <li>Show an open hand gesture to mark attendance</li>
+            </ol>
+        </div>
+        
+        <div class="action-buttons">
+            <a href="{{ url_for('add_student') }}" class="btn-primary">Add Another Student</a>
+            <a href="{{ url_for('index') }}" class="btn-secondary">View Live Camera</a>
+            <a href="{{ url_for('attendance') }}" class="btn-tertiary">Check Attendance</a>
+        </div>
+    </div>
+</div>
+
+<style>
+.success-section {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.success-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.registration-summary {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin: 2rem 0;
+    text-align: left;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.label {
+    font-weight: bold;
+    color: #00ff88;
+}
+
+.value.success {
+    color: #00ff88;
+    font-weight: bold;
+}
+
+.next-steps {
+    text-align: left;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin: 2rem 0;
+}
+
+.next-steps ol {
+    padding-left: 1.5rem;
+}
+
+.next-steps li {
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.btn-primary, .btn-secondary, .btn-tertiary {
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: transform 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #00ff88, #0088ff);
+    color: #000;
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 1px solid #444;
+}
+
+.btn-tertiary {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    border: 1px solid #666;
+}
+
+.btn-primary:hover, .btn-secondary:hover, .btn-tertiary:hover {
+    transform: scale(1.05);
+}
+</style>
+{% endblock %}

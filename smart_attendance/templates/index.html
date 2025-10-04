@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="hero-section">
+        <h1 class="hero-title">Futuristic Attendance System</h1>
+        <p class="hero-subtitle">AI-Powered Face & Gesture Recognition</p>
+    </div>
+
+    <div class="camera-section">
+        <div class="camera-container">
+            <img src="{{ url_for('video_feed') }}" class="camera-feed" alt="Live Camera Feed">
+            <div class="camera-overlay">
+                <div class="status-indicator">
+                    <span class="status-dot"></span>
+                    <span>Live</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h3>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;How to mark attendance</h3>
+            <ol><li>If you are a new student register in "Add Student"section.</li>
+                <li>Position your face clearly in front of the camera</li>
+                <li>Wait for your name to appear</li>
+                <li>Show an open hand gesture to mark attendance</li>
+                <li>Wait for confirmation message</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="stats-section">
+        <div class="stat-card">
+            <h3>Today's Attendance</h3>
+            <p class="stat-number" id="today-count">0</p>
+        </div>
+        <div class="stat-card">
+            <h3>Total Students</h3>
+            <p class="stat-number" id="total-students">0</p>
+        </div>
+        <div class="stat-card">
+            <h3>System Status</h3>
+            <p class="stat-status">Active</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

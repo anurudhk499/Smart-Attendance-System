@@ -1,0 +1,229 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="registration-section">
+        <h1>Register Face for {{ name }}</h1>
+        
+        <div class="camera-container">
+            <img src="{{ url_for('video_feed') }}" class="camera-feed" alt="Registration Camera Feed">
+        </div>
+        
+        <div class="registration-info">
+            <h3>Registration Progress</h3>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill">0%</div>
+                </div>
+                <div class="progress-text" id="progressText">0/10 samples collected</div>
+            </div>
+            
+            <div class="status-message" id="statusMessage">
+                Please position your face in the camera view...
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h3>Face Registration Instructions:</h3>
+            <ol>
+                <li>Ensure you are in a well-lit area</li>
+                <li>Look directly at the camera</li>
+                <li>Keep a neutral expression</li>
+                <li>Remove glasses if possible</li>
+                <li>Make sure your entire face is visible</li>
+                <li>The system will automatically capture samples every 2 seconds</li>
+            </ol>
+            
+            <div class="registration-tips">
+                <h4>Tips for better recognition:</h4>
+                <ul>
+                    <li>Stand about 1-2 meters from the camera</li>
+                    <li>Avoid strong backlighting</li>
+                    <li>Keep your face centered in the frame</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <button onclick="checkRegistrationStatus()" class="btn-check">Check Progress</button>
+            <button onclick="completeRegistration()" class="btn-complete">Complete Registration</button>
+            <a href="{{ url_for('index') }}" class="btn-cancel">Cancel</a>
+        </div>
+    </div>
+</div>
+
+<script>
+function updateProgress(samplesCollected, maxSamples) {
+    const percentage = (samplesCollected / maxSamples) * 100;
+    const progressFill = document.getElementById('progressFill');
+    const progressText = document.getElementById('progressText');
+    const statusMessage = document.getElementById('statusMessage');
+    
+    progressFill.style.width = percentage + '%';
+    progressFill.textContent = Math.round(percentage) + '%';
+    progressText.textContent = samplesCollected + '/' + maxSamples + ' samples collected';
+    
+    if (samplesCollected >= maxSamples) {
+        statusMessage.innerHTML = '<span style="color: #00ff88;">✓ Registration Complete! Face data successfully captured.</span>';
+    } else if (samplesCollected > 0) {
+        statusMessage.textContent = 'Face detected! Continue looking at the camera...';
+    } else {
+        statusMessage.textContent = 'Please position your face in the camera view...';
+    }
+}
+
+function checkRegistrationStatus() {
+    fetch('/api/registration_status')
+        .then(response => response.json())
+        .then(data => {
+            updateProgress(data.samples_collected, data.max_samples);
+            
+            if (data.samples_collected >= data.max_samples) {
+                setTimeout(() => {
+                    window.location.href = "{{ url_for('complete_registration', name=name) }}";
+                }, 2000);
+            }
+        })
+        .catch(error => {
+            console.error('Error checking registration status:', error);
+        });
+}
+
+function completeRegistration() {
+    // Force complete the registration
+    window.location.href = "{{ url_for('complete_registration', name=name) }}";
+}
+
+// Check status every 3 seconds
+setInterval(checkRegistrationStatus, 3000);
+
+// Initial check
+document.addEventListener('DOMContentLoaded', function() {
+    checkRegistrationStatus();
+});
+</script>
+
+<style>
+.registration-section {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.camera-container {
+    background: #000;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.camera-feed {
+    max-width: 100%;
+    height: auto;
+}
+
+.registration-info {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2rem;
+    border-radius: 10px;
+    margin: 2rem 0;
+}
+
+.progress-container {
+    margin-bottom: 1rem;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(45deg, #00ff88, #0088ff);
+    border-radius: 15px;
+    transition: width 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.progress-text {
+    text-align: center;
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+.status-message {
+    text-align: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 5px;
+    margin-top: 1rem;
+}
+
+.instructions {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2rem;
+    border-radius: 10px;
+    margin: 2rem 0;
+}
+
+.registration-tips {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #444;
+}
+
+.registration-tips ul {
+    padding-left: 1.5rem;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-check, .btn-complete, .btn-cancel {
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.3s;
+}
+
+.btn-check {
+    background: linear-gradient(45deg, #0088ff, #00ff88);
+    color: #000;
+}
+
+.btn-complete {
+    background: linear-gradient(45deg, #00ff88, #0088ff);
+    color: #000;
+}
+
+.btn-cancel {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 1px solid #444;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-check:hover, .btn-complete:hover, .btn-cancel:hover {
+    transform: scale(1.05);
+}
+</style>
+{% endblock %}

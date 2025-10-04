@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="header-section">
+        <h1>Attendance Records</h1>
+        <button class="btn-refresh" onclick="loadAttendance()">Refresh</button>
+    </div>
+
+    <div class="table-container">
+        <table class="attendance-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="attendance-body">
+                {% for record in records %}
+                <tr>
+                    <td>{{ record.Name }}</td>
+                    <td>{{ record.Date }}</td>
+                    <td>{{ record.Time }}</td>
+                    <td class="status-{{ record.Status|lower }}">{{ record.Status }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="export-section">
+        <button class="btn-export" onclick="exportAttendance()">Export to CSV</button>
+    </div>
+</div>
+{% endblock %}

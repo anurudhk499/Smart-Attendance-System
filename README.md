@@ -23,24 +23,25 @@ git clone https://github.com/yourusername/smart-attendance-system.git
 cd smart-attendance-system
 pip install -r requirements.txt
 python app.py
-
+```
 ## 💡 How It Works
 - **Register Students**: Add students with face capture
-- **Mark Attendance: Show face + open hand gesture
-- **View Records: Check attendance in web dashboard
-- **Export Data: Download CSV reports
+- **Mark Attendance**: Show face + open hand gesture
+- **View Records**: Check attendance in web dashboard
+- **Export Data**: Download CSV reports
 
-### 🎯 Use Cases
-Classroom attendance
-Office attendance systems
-Event management
-Secure access control
+## 🎯 Use Cases
+- Classroom attendance
+- Office attendance systems
+- Event management
+- Secure access control
 
-### 📁 Project Structure
-text
+## 📁 Project Structure
+```bash
 smart-attendance-system/
 ├── app.py                 # Main application
 ├── models/               # ML models
 ├── templates/            # HTML pages
 ├── static/              # CSS/JS assets
 └── data/                # Attendance records
+```

@@ -41,3 +41,27 @@ smart-attendance-system/
 ├── templates/            # HTML pages
 ├── static/              # CSS/JS assets
 └── data/                # Attendance records
+# Smart Attendance System
+
+A Python-based attendance management system that uses face recognition and hand gesture detection.  
+
+## 🚀 Key Features
+
+- **Face Recognition**: Real-time face detection and identification  
+- **Gesture Control**: Hand gesture recognition for attendance marking  
+- **Web Interface**: Modern Flask-based dashboard  
+- **Automated Recording**: CSV-based attendance logging  
+
+## 🛠️ Tech Stack
+
+- **Backend**: Flask, OpenCV, face-recognition, MediaPipe  
+- **Frontend**: HTML5, CSS3, JavaScript  
+- **ML Models**: Face recognition, Hand gesture detection  
+
+## 📦 Installation
+
+```bash
+git clone https://github.com/yourusername/smart-attendance-system.git
+cd smart-attendance-system
+pip install -r requirements.txt
+python app.py
